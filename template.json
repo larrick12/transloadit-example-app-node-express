@@ -1,0 +1,48 @@
+{
+  "steps": {
+    "files": {
+      "robot": "/file/filter",
+      "accepts": [
+        [
+          "${file.mime}",
+          "regex",
+          "image"
+        ]
+      ],
+      "error_on_decline": true
+    },    
+    "medium": {
+      "use": ":original",
+      "robot": "/image/resize",
+      "width": 300,
+      "height": 200,
+      "resize_strategy": "fit"
+    },
+    "large": {
+      "use": ":original",
+      "robot": "/image/resize",
+      "width": 480,
+      "height": 320,
+      "resize_strategy": "fit"
+    },
+    "thumbnail": {
+      "use": ":original",
+      "robot": "/image/resize",
+      "width": 80,
+      "height": 80,
+      "resize_strategy": "crop"
+    },
+    "export": {
+      "use": [        
+        "medium",
+        "large",
+        "thumbnail"
+      ],
+      "robot": "/s3/store",
+      "path": "users/profiles/${fields.username}${file.meta.width}x${file.meta.width}.${file.ext}",
+      "key": "YOUR-ACCESS-KEY",
+      "secret": "YOUR-SECRET",
+      "bucket": "bucket.example.com"
+    }
+  }
+}

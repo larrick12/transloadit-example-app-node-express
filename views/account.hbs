@@ -1,0 +1,44 @@
+<h2>Hello, {{ user.username }}</h2>
+
+{{# if user.avatar }}
+<img src="{{ user.avatar.thumbnail }}" id="avatar">
+{{else}}
+<img src="/avatar.png" id="avatar">
+{{/if}}
+
+<form method="POST" action="/avatar" id="avatar-form">
+	<input type="file" name="image" id="avatar-upload">
+	<input type="hidden" name="username" value="{{user.username}}">	
+</form>
+
+<script>
+var sig = {{{ json sig }}};
+
+$(function() {
+	$('#avatar-form').transloadit({  
+	  wait: true,
+	  params: sig.params,
+	  signature: sig.signature,
+	  fields: true,
+	  triggerUploadOnFileSelection: true,  
+	  autoSubmit: false,
+	  onSuccess: function(assembly) {  	
+	  	$('img#avatar').attr('src', assembly.results.thumbnail[0].url + '?' + (new Date()).getTime() );
+	  	var derivatives = {
+	  		thumbnail : assembly.results.thumbnail[0].url,
+	  		medium : assembly.results.medium[0].url,
+	  		large : assembly.results.large[0].url
+	  	};
+	  	$.ajax({
+	  		type: 'post',
+	  		url: '/avatar',
+	  		data: derivatives,
+	  		success: function(resp){
+	  			console.log(resp);
+	  		}
+	  	})
+	  }
+	});
+});
+
+</script>

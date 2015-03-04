@@ -1,0 +1,27 @@
+{
+  "name": "transloadit-example-application",
+  "version": "1.0.0",
+  "authors": [
+    "lukaswhite <hello@lukaswhite.com>"
+  ],
+  "description": "A simple example application which demonstrates Transloadit for uploading and resizing images",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "images",
+    "Transloadit"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.3.1"
+  }
+}

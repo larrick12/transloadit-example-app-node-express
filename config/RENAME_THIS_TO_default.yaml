@@ -1,0 +1,11 @@
+app:
+  port: 4000
+session:
+  secret: 'SOME-SECRET-KEY'
+mongo:
+  host: 'localhost'
+  name: 'transloadit'
+transloadit:
+  auth_key: 'YOUR-AUTH-KEY'
+  auth_secret: 'YOUR-AUTH-SECRET'
+  template_id: 'YOUR-TEMPLATE_ID'
