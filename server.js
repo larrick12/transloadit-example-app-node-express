@@ -3,7 +3,7 @@
 *
 *  Demonstrates the use of Transloadit for handling image uploads and
 *  manipulation.
-*  
+*
 ************************************************************************/
 
 /************************************************************************
@@ -19,7 +19,7 @@ var express     			=   require('express')
   , LocalStrategy 		= 	require('passport-local').Strategy
   , mongodb 					= 	require('mongodb')
   , mongoose 					= 	require('mongoose')
-  , bcrypt 						= 	require('bcrypt')  
+  , bcrypt 						= 	require('bcrypt')
   , SALT_WORK_FACTOR 	= 	10;
 
 /************************************************************************
@@ -78,7 +78,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 ************************************************************************/
 var User = mongoose.model('User', userSchema)
   , user = new User({ username: 'bob', email: 'bob@example.com', password: 'secret' });
-  
+
 user.save(function(err) {
   if(err) {
     console.log(err);
@@ -141,11 +141,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Set up templating using Handlebars
 app.engine('.hbs', exphbs(
 	{
-		extname: '.hbs', 
+		extname: '.hbs',
 		defaultLayout: 'default',
 		helpers : {
 			json : function(context) {
-				return JSON.stringify(context);			
+				return JSON.stringify(context);
 			}
 		}
 
@@ -154,7 +154,7 @@ app.engine('.hbs', exphbs(
 app.set('view engine', '.hbs');
 
 // Configure sessions
-app.use(session({ 
+app.use(session({
   secret: config.session.secret,
   resave: true,
   saveUninitialized: false
@@ -170,21 +170,21 @@ app.use(passport.session());
 
 // Homepage
 app.get('/', function(req, res){
-  
+
   return res.render('index', { user: req.user });
 
 });
 
 // The account page
 app.get('/account', ensureAuthenticated, function(req, res){
-	
+
 	// Instantiate the signature class...
 	var signature = require('transloadit-api').Signature(
 	{
 		key : config.transloadit.auth_key,
-		secret : config.transloadit.auth_key
+		secret : config.transloadit.auth_secret
 	});
-	
+
 	// ...buid the Transloadit parameters...
 	var params = {
 		template_id 	: 	config.transloadit.template_id
@@ -193,9 +193,9 @@ app.get('/account', ensureAuthenticated, function(req, res){
 	// ...and generate the signature
 	var sig = signature.create(params);
 
-  res.render('account', { 
-  	user: req.user, 
-  	sig : sig 
+  res.render('account', {
+  	user: req.user,
+  	sig : sig
   });
 
 });
@@ -215,7 +215,7 @@ app.post('/avatar', ensureAuthenticated, function(req, res){
 app.get('/login', function(req, res){
   res.render('login', { user: req.user, message: req.session.messages });
 });
-  
+
 // POST callback for the login page
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {

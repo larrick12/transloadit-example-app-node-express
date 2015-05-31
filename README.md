@@ -4,7 +4,7 @@ A simple application which demonstrates how you can use [TransloadIt](https://tr
 
 In this example application, a user avatar form is "hijacked" sending uploaded images not to the application but to TransloadIt's servers. A series of "robots" then resizes the upload several times over, creating a bunch "derivatives" - different sizes - of the image. The URLs of these derivatives then gets pinged back to the uoload form, which in turn sends those URLs to the application for storage.
 
-This application is designed to accompany a forthcomig Sitepoint article.
+This application is designed to accompany this article on SitePoint: [Building a User Avatar Component With Node.js & TransloadIt](http://www.sitepoint.com/user-avatar-component-node-js-transloadit).
 
 ##Pre-requisites
 
@@ -13,7 +13,7 @@ This application is designed to accompany a forthcomig Sitepoint article.
 * MongoDB
 * Bower
 
-You'll also need an [account with TransloadIt]([TransloadIt](https://transloadit.com) and an S3 bucket.
+You'll also need an [account with TransloadIt](https://transloadit.com) and an S3 bucket.
 
 ##Installation
 

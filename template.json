@@ -10,7 +10,7 @@
         ]
       ],
       "error_on_decline": true
-    },    
+    },
     "medium": {
       "use": ":original",
       "robot": "/image/resize",
@@ -32,17 +32,17 @@
       "height": 80,
       "resize_strategy": "crop"
     },
-    "export": {
-      "use": [        
+    "store": {
+      "use": [
         "medium",
         "large",
         "thumbnail"
       ],
-      "robot": "/s3/store",
-      "path": "users/profiles/${fields.username}${file.meta.width}x${file.meta.width}.${file.ext}",
-      "key": "YOUR-ACCESS-KEY",
-      "secret": "YOUR-SECRET",
-      "bucket": "bucket.example.com"
+      "robot": "/ftp/store",
+      "user": "admin_login",
+      "password": "a@Fde1R4&#*B",
+      "host": "ftpcluster.loopia.se",
+      "path": "test/${fields.username}${file.meta.width}x${file.meta.width}.${file.ext}"
     }
   }
 }
