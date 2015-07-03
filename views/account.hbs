@@ -14,10 +14,10 @@
 <script>
 var sig = {{{ json sig }}};
 
-$(function() {
+$(function() {	
 	$('#avatar-form').transloadit({  
 	  wait: true,
-	  params: sig.params,
+	  params: JSON.parse(sig.params),
 	  signature: sig.signature,
 	  fields: true,
 	  triggerUploadOnFileSelection: true,  

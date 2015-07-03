@@ -19,6 +19,11 @@ var express     			=   require('express')
   , LocalStrategy 		= 	require('passport-local').Strategy
   , mongodb 					= 	require('mongodb')
   , mongoose 					= 	require('mongoose')
+  , TransloaditClient =   require('transloadit')
+  , transloadit       =   new TransloaditClient({
+      authKey     : config.transloadit.auth_key,
+      authSecret  : config.transloadit.auth_secret
+    })
   , bcrypt 						= 	require('bcrypt')
   , SALT_WORK_FACTOR 	= 	10;
 
@@ -178,20 +183,13 @@ app.get('/', function(req, res){
 // The account page
 app.get('/account', ensureAuthenticated, function(req, res){
 
-	// Instantiate the signature class...
-	var signature = require('transloadit-api').Signature(
-	{
-		key : config.transloadit.auth_key,
-		secret : config.transloadit.auth_secret
-	});
-
-	// ...buid the Transloadit parameters...
+	// Build the Transloadit parameters...
 	var params = {
 		template_id 	: 	config.transloadit.template_id
 	};
 
 	// ...and generate the signature
-	var sig = signature.create(params);
+	var sig = transloadit.calcSignature(params);  
 
   res.render('account', {
   	user: req.user,
